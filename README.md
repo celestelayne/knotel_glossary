@@ -1,68 +1,124 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Spin Up a Project from Scratch
 
-In the project directory, you can run:
+* **[Getting Started](#getting-started):** Setting up React boilerplate.
+* **[ApolloClient Setup](#apolloclient-setup):** Create Instance of ApolloClient.
+* **[Create GraphQL Server](#create-graphql-server):** Create Express server.
+* **[Connect Frontend to Backend](#connect-frontend-to-backend):** Connect React to GraphQL Server Using ApolloClient.
 
-### `yarn start`
+### `Getting Started`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+First, let's create the React app by initiating a new basic React project in the newly created project folder knotel_glossary.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```bash
+$ npm init react-app knotel_glossary
+$ cd knotel_glossary
+```
+Inside the `package.json` file, you will see several scripts have been provided that allows you to run several commands from Terminal: `react`, `react-dom` and `react-scripts`. To start up the application, in the Terminal type:
 
-### `yarn test`
+```bash
+$ npm start. #Starts the development server.
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+By using the `npm start` command the live-reloading development web server is started and you can now view knotel_glossary in the browser:
 
-### `yarn build`
+```bash
+  Local:            http://localhost:3000/
+  On Your Network:  http://10.0.80.246:3000/
+```
+### `React Setup with Parcel`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `Setting Up Folder Structure`
 
-### `yarn eject`
+In the `src` folder, add the following folders:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+$ mkdir src/assets
+$ mkdir src/components
+$ mkdir src/services
+```
+The `assets` folder is where we will maintain images and videos to be used in the application.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```md
+└── src
+    ├── assets
+        ├── images
+        ├── videos
+```
+The `components` folder is where we will set up our component file structure.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```md
+└── src
+    ├── components
+    │   ├── List
+    │       ├── List.js
+    │       ├── List.css
+    │   ├── ListItem
+    │       ├── ListItem.js
+    │       ├── ListItem.css
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+The `services` folder is where we will make our api calls.
+
+```md
+└── src
+    ├── services
+        ├── apiservices.js
+```
+
+### `File Structure`
+
+The `src` folder contains the core business logic of our React application. Ultimately, the project folder structure should look similar to the following:
+
+**Note: We are using the .jsx extension because the components are not standard JavaScript and we want to maintain a pattern where JavaScript goes in .js files.**
+
+### `House Cleaning`
+
+Now, let’s do some house cleaning:
+
+In the src folder, delete the following files:
+
+```bash
+$ rm serviceWorker.js
+$ rm logo.svg
+```
+Then, in the `index.js` file, delete all references to serviceWorker and in the `src/App.js`, delete the line that imports the logo.
+
+### `Hello Hello`
+
+Now, modify the App Component to reflect the following changes in the `return()`.
+The `src/App.js` file should look similar to the following:
+
+```js
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello Hello</h1>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+Our environment is set up and now you’re ready to move on!
+
+### `ApolloClient Setup`
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+### `Create GraphQL Server`
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### `Connect Frontend to Backend`
