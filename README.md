@@ -10,6 +10,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `Getting Started`
 
+Today we will be building a glossary of terms frequently used at Knotel.
+
 #### React Setup with create-react-app
 
 First, let's create the React app by initiating a new basic React project in the newly created project folder knotel_glossary.
@@ -176,12 +178,12 @@ app.get('/', (req, res) => res.send('Hello Hello!'))
 
 app.listen(PORT, () => console.log(`Knotel app listening on port ${PORT}!`))
 ```
-This is simple boilerplate Express server.
+This is simple boilerplate for an Express server that you can find in the documentation.
 
 To make sure we can easily run both the server and client at the same time, add the following dev dependencies:
 
 ```bash
-$ npm install nodemon
+$ npm install nodemon npm-run-all
 ```
 Then, edit the `package.json` with the following new scripts:
 
@@ -194,8 +196,6 @@ Then, edit the `package.json` with the following new scripts:
 }
 ```
 In Terminal, type `npm run start` to run both server and client simultaneously. This script uses the package [npm-run-all](https://www.npmjs.com/package/npm-run-all), a CLI tool to run multiple npm-scripts in parallel or sequential.
-
-Point your browser to http://localhost:4000/graphql to get the GraphiQL server.
 
 #### Setting Up GraphQL endpoint
 
@@ -240,31 +240,104 @@ app.use('/graphql', graphqlHTTP({
 app.listen(PORT, () => console.log(`Knotel app listening on port ${PORT}!`))
 ```
 
-Now, start the server and access the browser `localhost:4000/graphql` to see results:
+Point your browser to `http://localhost:4000/graphql` to see results. In the query editor on the left type the following and press the play button:
 
+```js
+{
+    message
+}
 ```
-$ node server/index.js
+You should see the following results in the right screen window:
+
+```js
+{
+  "data": {
+    "message": "Hello Hello"
+  }
+}
 ```
+
 
 ### `Using Mock Data`
 
+For now, to be able to return data without the need to connect to a database let's use some mock data to query:
 
+```js
+const TERMS = [
+
+  {
+    id: 1,
+    name: 'floor',
+    definition: 'The base unit for what we deliver as a product. We build and fit a floor, not building, we put members on a floor.',
+  },
+  {
+    id: 2,
+    name: 'member',
+    definition: 'A company that pays to be in Knotel space and use our services.',
+  }
+
+]
+```
+Here, you’ve defined a `Term` type, which contains an id, and name, and a definition. You need to say what the types are for each element. Here, name and definition both use the primitive String type, and id is an ID.
+
+Here, you’re saying that terms will give you an array of Terms, but if you want a single Term you can query it by calling term and passing in the ID.
+
+First we define a schema with a custom type `Term` and two query actions. The `Term` object type consist of three properties -- id, name and definition. The defined query actions enable the user to retrieve a single term by ID or retrieving an array of Term objects.
+
+```js
+const schema = buildSchema(`
+    type Query {
+        term(id: ID!): Term
+        terms: [Term]
+    }
+
+    type Term {
+        id: ID
+        name: String
+        definition: String
+    }
+`)
+```
+
+In the root resolver we’re connecting the `term` query action to the `getTerm()` function and the `terms` query action to the `getTerms()` function.
+
+```js
+// getTerm function
+const getTerm = (term) => {
+    console.log(term.id)
+    let id = term.id
+    return TERMS.filter(num => num.id == id).shift()
+}
+
+// getTerms function
+const getTerms = (term) => {
+    return TERMS.map(term => term) 
+}
+
+// root resolver
+const root = {
+    // terms query action
+    terms: getTerms,
+    // term query action
+    term: getTerm
+}
+```
+When someone queries `terms`, it will run the `getTerms()` function, providing an array of all the Terms, but if you want a single Term you can query it by calling term and passing in the ID.
+
+![](public/assets/graphql-sandbox.png)
 
 ### `ApolloClient Setup`
 
-Connect the frontend (React application) to GraphQL (Express server).
+Connect the frontend (React application) to GraphQL (Express server). 
 
 In order to be able to access a GraphQL service from our React application we need to create an instance of ApolloClient.
 
-Create a new file in the `src` folder named `ApolloClient.js`:
+Create a new file in the `src` folder named `ApolloClient.js` and include the following:
 
 ```js
 import ApolloClient from 'apollo-boost'
 
 export default new ApolloClient({
-    
+    uri: "http://localhost:4000/graphql",
 })
 ```
-
-
-### `Connect Frontend to Backend`
