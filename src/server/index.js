@@ -15,8 +15,17 @@ const TERMS = [
       id: 2,
       name: 'member',
       definition: 'A company that pays to be in Knotel space and use our services.',
-    }
-  
+    },
+    {
+        id: 3,
+        name: 'ARR',
+        definition: 'Annual Recurring Revenue',
+    },
+    {
+        id: 4,
+        name: 'Loss Factor',
+        definition: 'A percentage that represents the difference between the rentable square feet (what the tenant pays for) and the usable floor area (after the columns, radiators, stairways or elevators have been subtracted from the measurement.',
+    },
   ]
 
 const schema = buildSchema(`
@@ -50,6 +59,7 @@ const root = {
 const app = express()
 const cors = require('cors')
 
+app.use(cors())
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,

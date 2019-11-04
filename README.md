@@ -341,3 +341,20 @@ export default new ApolloClient({
     uri: "http://localhost:4000/graphql",
 })
 ```
+Here, ApolloClient is imported from the `apollo-boost` library. A new instance of ApolloClient is created and stored in the client variable.
+
+Now, we need to connect the instance of ApolloClient to the React application in the `index.jsx`. To do this, we need to wrap the entire app in an ApolloProvider component.
+
+```js
+...
+import { ApolloProvider } from 'react-apollo';
+import App from './App';
+import client from './ApolloClient';
+
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>, 
+    document.getElementById('root')
+);
+```

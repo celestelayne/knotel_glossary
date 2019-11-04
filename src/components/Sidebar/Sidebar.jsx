@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
 import { Box, Flex, Text } from '@knotel/cinderblock'
 
-import GlossaryListItem from '../../components/GlossaryListItem/GlossaryListItem'
-import MainContent from '../MainContent/MainContent';
+const GET_TERMS = gql`{
+    terms {
+        id
+        name
+        definition
+    }
+}`
 
-const Sidebar = ({words}) => {
 
-    console.log(words)
+const Sidebar = () => (
 
-    const data = words && words.map((word, index) =>
-        <GlossaryListItem key={index} word={word} />
-    )
+    <Query query={GET_TERMS}>
+        {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return error.message;
 
-    return (
-        <Flex
-        p={2}
-        color='black'>
-            <Box>{data}</Box>
-        </Flex>
-    )
-    
-}
+            const { terms } = data;
+            console.log(terms)
+            return terms.map((term, id) => {
+                return <Flex
+                key={term.id}
+                p={2}
+                color='black'>
+                    <Box>{term.name}</Box>
+                </Flex>
+            })
+        }}
+    </Query>
+)
   
 export default Sidebar

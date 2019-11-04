@@ -7,18 +7,18 @@ import MainContent from './components/MainContent/MainContent'
 
 import './App.css';
 
-const words = [
+// const words = [
 
-  {
-    word: 'floor',
-    definition: 'The base unit for what we deliver as a product. We build and fit a floor, not building, we put members on a floor.',
-  },
-  {
-    word: 'member',
-    definition: 'A company that pays to be in Knotel space and use our services.',
-  }
+//   {
+//     word: 'floor',
+//     definition: 'The base unit for what we deliver as a product. We build and fit a floor, not building, we put members on a floor.',
+//   },
+//   {
+//     word: 'member',
+//     definition: 'A company that pays to be in Knotel space and use our services.',
+//   }
 
-]
+// ]
 
 function App() {
   return (
@@ -27,10 +27,10 @@ function App() {
         <Nav/>
         <Flex>
           <Box px={3} width={1 / 4}>
-            <Sidebar words={words} />
+            <Sidebar/>
           </Box>
           <Box px={3} width={3 / 4}>
-            <MainContent words={words}/>
+            <MainContent/>
           </Box>
         </Flex>
       </Box>
