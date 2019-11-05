@@ -358,3 +358,49 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+
+`### Connect Frontend to Backend`
+
+Once the data is done loading, the data variable will be an object including the data you requested.
+
+`### UI Components`
+
+Now that we have the data rendering to the client through ApolloClient, let's take a step back and set up our user interface with Cinderblock. In the `App.jsx` file, wrap your code with the `ThemeProvider` component -- it adds the Design System theme to context for use in styled-components and sets typographic defaults.
+
+```js
+import { ThemeProvider } from '@knotel/cinderblock'
+
+function App() {
+    return (
+      <ThemeProvider>
+        <h1>Hello Hello</h1>
+      </ThemeProvider>
+    )
+}
+
+export default App;
+```
+
+For the layout, we will be using the `[Flex](https://knotel.github.io/cinderblock/?path=/docs/flex--basic)` and `[Box](https://knotel.github.io/cinderblock/?path=/docs/box--layout-component)` components. The Knotel Glossary uses a simple nav bar and two-column layout, nested inside the `ThemeProvider`. In React, Adjacent JSX elements must be wrapped in an enclosing tag, so think of the `<Box>` component as an enclosing tag. 
+
+```js
+import { ThemeProvider, Box, Flex } from '@knotel/cinderblock'
+
+import Nav from './components/Nav'
+import Sidebar from './components/Sidebar/Sidebar'
+import MainContent from './components/MainContent/MainContent'
+
+...
+<Box>
+    <Nav/>
+    <Flex>
+        <Box px={3} width={1 / 4}>
+            <Sidebar />
+        </Box>
+        <Box px={3} width={3 / 4}>
+            <MainContent />
+        </Box>
+    </Flex>
+</Box>
+```
+Note: `px` sets the padding along the x-axis, left and right.

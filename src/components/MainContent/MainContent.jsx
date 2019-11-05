@@ -1,18 +1,34 @@
-import React, { Component } from 'react';
-import { Box, Flex, Text, Card } from '@knotel/cinderblock'
+import React from 'react';
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
-const MainContent = ({word}) => (
-    <Flex
-    p={2}
-    color='black'>
-        <Card 
-            p={4}
-            width={1}
-            boxShadowSize='sm'
-            borderWidth={1}>
-            <Text>definition</Text>
-        </Card>
-    </Flex>
+import { Box, Flex, Text } from '@knotel/cinderblock'
+
+const GET_TERMS = gql`{
+    terms {
+        id
+        name
+        definition
+    }
+}`
+const MainContent = () => (
+    <Query query={GET_TERMS}>
+        {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return error.message;
+
+            const { terms } = data;
+            console.log(terms)
+            return terms.map((term, id) => {
+                return <Flex
+                key={id}
+                p={2}
+                color='black'>
+                    <Box>{term.definition}</Box>
+                </Flex>
+            })
+        }}
+    </Query>
 )
   
 export default MainContent

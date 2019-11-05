@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Box, Flex, Text } from '@knotel/cinderblock'
 
-const GlossaryListItem = ({word}) => {
+const GlossaryListItem = (props) => {
     return (
       <Text>
-        {word.word}
+        {props.term.name}
       </Text>
     )
   }

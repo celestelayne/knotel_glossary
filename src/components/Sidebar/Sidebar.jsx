@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-import { Box, Flex, Text } from '@knotel/cinderblock'
+import { Box, Flex } from '@knotel/cinderblock'
+
+import GlossaryListItem from '../GlossaryListItem/GlossaryListItem'
 
 const GET_TERMS = gql`{
     terms {
@@ -17,17 +19,19 @@ const Sidebar = () => (
 
     <Query query={GET_TERMS}>
         {({ loading, error, data }) => {
+
             if (loading) return <p>Loading...</p>;
             if (error) return error.message;
 
             const { terms } = data;
             console.log(terms)
+            
             return terms.map((term, id) => {
                 return <Flex
-                key={term.id}
+                key={id}
                 p={2}
                 color='black'>
-                    <Box>{term.name}</Box>
+                    <GlossaryListItem term={term}/>
                 </Flex>
             })
         }}

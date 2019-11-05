@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ThemeProvider, Box, Flex } from '@knotel/cinderblock'
 
 import Nav from './components/Nav'
@@ -21,21 +21,21 @@ import './App.css';
 // ]
 
 function App() {
-  return (
-    <ThemeProvider>
-      <Box>
-        <Nav/>
-        <Flex>
-          <Box px={3} width={1 / 4}>
-            <Sidebar/>
-          </Box>
-          <Box px={3} width={3 / 4}>
-            <MainContent/>
-          </Box>
-        </Flex>
-      </Box>
-    </ThemeProvider>
-  );
+    return (
+      <ThemeProvider>
+        <Box>
+          <Nav/>
+          <Flex>
+            <Box px={3} width={1 / 4}>
+              <Sidebar/>
+            </Box>
+            <Box px={3} width={3 / 4}>
+              <MainContent/>
+            </Box>
+          </Flex>
+        </Box>
+      </ThemeProvider>
+    )
 }
 
 export default App;
