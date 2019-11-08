@@ -5,7 +5,7 @@ import Nav from './components/Nav'
 import Sidebar from './components/Sidebar/Sidebar'
 import MainContent from './components/MainContent/MainContent'
 
-import './App.css';
+import './App.css'
 
 // const words = [
 
@@ -20,22 +20,22 @@ import './App.css';
 
 // ]
 
-function App() {
-    return (
-      <ThemeProvider>
-        <Box>
-          <Nav/>
-          <Flex>
-            <Box px={3} width={1 / 4}>
-              <Sidebar/>
-            </Box>
-            <Box px={3} width={3 / 4}>
-              <MainContent/>
-            </Box>
-          </Flex>
-        </Box>
-      </ThemeProvider>
-    )
+function App () {
+  return (
+    <ThemeProvider>
+      <Box>
+        <Nav />
+        <Flex>
+          <Box px={3} width={1 / 4}>
+            <Sidebar />
+          </Box>
+          <Box px={3} width={3 / 4}>
+            <MainContent />
+          </Box>
+        </Flex>
+      </Box>
+    </ThemeProvider>
+  )
 }
 
-export default App;
+export default App

@@ -25,11 +25,11 @@ const Sidebar = () => (
 
             const { terms } = data;
             console.log(terms)
-            
+
             return terms.map((term, id) => {
                 return <Flex
                 key={id}
-                p={2}
+                p={3}
                 color='black'>
                     <GlossaryListItem term={term}/>
                 </Flex>
